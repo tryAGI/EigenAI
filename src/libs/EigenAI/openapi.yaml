@@ -1,0 +1,174 @@
+openapi: 3.0.3
+info:
+  title: EigenAI Model API
+  version: 1.0.0
+  description: Manual OpenAPI specification for EigenAI model inference based on the official Model API documentation.
+servers:
+  - url: https://api-web.eigenai.com
+security:
+  - BearerAuth: []
+paths:
+  /api/v1/generate:
+    post:
+      operationId: generateImage
+      tags:
+        - Images
+      summary: Generate or edit an image.
+      description: Generates images from text prompts with JSON requests, or edits images with multipart form uploads depending on the selected model.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageGenerationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ImageEditRequest'
+      responses:
+        '200':
+          description: Generated image response. Some models return JSON with a base64 image or URL; binary_response may return raw image bytes.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageGenerationResponse'
+            image/png:
+              schema:
+                type: string
+                format: binary
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '429':
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  responses:
+    ErrorResponse:
+      description: EigenAI API error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ImageGenerationRequest:
+      type: object
+      required:
+        - model
+        - prompt
+      additionalProperties: true
+      properties:
+        model:
+          type: string
+          description: Model ID selected from the EigenAI model library.
+        prompt:
+          type: string
+          description: Text prompt describing what to generate.
+        seed:
+          type: integer
+        mode:
+          type: string
+          enum:
+            - text-to-image
+            - image-editing
+        real_time:
+          type: boolean
+        width:
+          type: integer
+          minimum: 512
+          maximum: 2048
+        height:
+          type: integer
+          minimum: 512
+          maximum: 2048
+        guidance_scale:
+          type: number
+          format: double
+    ImageEditRequest:
+      type: object
+      required:
+        - model
+        - prompt
+      additionalProperties: true
+      properties:
+        model:
+          type: string
+        prompt:
+          type: string
+        image_file:
+          type: string
+          format: binary
+        image:
+          type: string
+          format: binary
+        image_path:
+          type: string
+        num_inference_steps:
+          type: number
+          format: double
+        binary_response:
+          type: boolean
+        output_format:
+          type: string
+          enum:
+            - jpg
+            - png
+        downsizing_mp:
+          type: number
+          format: double
+        lora_strength:
+          type: number
+          format: double
+        rank:
+          type: number
+          format: double
+        offloading:
+          type: boolean
+        weight:
+          type: string
+        true_cfg_scale:
+          type: number
+          format: double
+        sample_steps:
+          type: number
+          format: double
+        sample_guide_scale:
+          type: number
+          format: double
+        negative_prompt:
+          type: string
+        s3_output_path:
+          type: string
+    ImageGenerationResponse:
+      type: object
+      additionalProperties: true
+      properties:
+        image_base64:
+          type: string
+        image_url:
+          type: string
+        url:
+          type: string
+        output:
+          type: string
+        status:
+          type: string
+        request_id:
+          type: string
+    Error:
+      type: object
+      additionalProperties: true
+      properties:
+        message:
+          type: string
+        error:
+          type: string
+        detail:
+          type: string
