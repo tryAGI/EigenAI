@@ -109,5 +109,6 @@ namespace EigenAI
         public ImageGenerationRequest()
         {
         }
+
     }
 }
