@@ -84,5 +84,6 @@ namespace EigenAI
         public ImageGenerationResponse()
         {
         }
+
     }
 }
