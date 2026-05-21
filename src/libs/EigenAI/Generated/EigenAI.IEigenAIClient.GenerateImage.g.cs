@@ -21,6 +21,19 @@ namespace EigenAI
         /// Generate or edit an image.<br/>
         /// Generates images from text prompts with JSON requests, or edits images with multipart form uploads depending on the selected model.
         /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::EigenAI.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::EigenAI.AutoSDKHttpResponse<global::EigenAI.ImageGenerationResponse>> GenerateImageAsResponseAsync(
+
+            global::EigenAI.ImageGenerationRequest request,
+            global::EigenAI.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Generate or edit an image.<br/>
+        /// Generates images from text prompts with JSON requests, or edits images with multipart form uploads depending on the selected model.
+        /// </summary>
         /// <param name="model">
         /// Model ID selected from the EigenAI model library.
         /// </param>

@@ -57,5 +57,6 @@ namespace EigenAI
         public Error()
         {
         }
+
     }
 }
