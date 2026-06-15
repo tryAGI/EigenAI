@@ -130,12 +130,12 @@ Generates images from text prompts with JSON requests, or edits images with mult
                             cancellationToken).ConfigureAwait(false);
                         var model = parseResult.GetRequiredValue(Model);
                         var prompt = parseResult.GetRequiredValue(Prompt);
-                        var seed = CliRuntime.WasSpecified(parseResult, Seed) ? parseResult.GetValue(Seed) : __requestBase is not null ? __requestBase.Seed : default;
-                        var mode = CliRuntime.WasSpecified(parseResult, Mode) ? parseResult.GetValue(Mode) : __requestBase is not null ? __requestBase.Mode : default;
-                        var realTime = CliRuntime.WasSpecified(parseResult, RealTime) ? parseResult.GetValue(RealTime) : __requestBase is not null ? __requestBase.RealTime : default;
-                        var width = CliRuntime.WasSpecified(parseResult, Width) ? parseResult.GetValue(Width) : __requestBase is not null ? __requestBase.Width : default;
-                        var height = CliRuntime.WasSpecified(parseResult, Height) ? parseResult.GetValue(Height) : __requestBase is not null ? __requestBase.Height : default;
-                        var guidanceScale = CliRuntime.WasSpecified(parseResult, GuidanceScale) ? parseResult.GetValue(GuidanceScale) : __requestBase is not null ? __requestBase.GuidanceScale : default;
+                        var seed = CliRuntime.WasSpecified(parseResult, Seed) ? parseResult.GetValue(Seed) : (__requestBase is { } __SeedBaseValue ? __SeedBaseValue.Seed : default);
+                        var mode = CliRuntime.WasSpecified(parseResult, Mode) ? parseResult.GetValue(Mode) : (__requestBase is { } __ModeBaseValue ? __ModeBaseValue.Mode : default);
+                        var realTime = CliRuntime.WasSpecified(parseResult, RealTime) ? parseResult.GetValue(RealTime) : (__requestBase is { } __RealTimeBaseValue ? __RealTimeBaseValue.RealTime : default);
+                        var width = CliRuntime.WasSpecified(parseResult, Width) ? parseResult.GetValue(Width) : (__requestBase is { } __WidthBaseValue ? __WidthBaseValue.Width : default);
+                        var height = CliRuntime.WasSpecified(parseResult, Height) ? parseResult.GetValue(Height) : (__requestBase is { } __HeightBaseValue ? __HeightBaseValue.Height : default);
+                        var guidanceScale = CliRuntime.WasSpecified(parseResult, GuidanceScale) ? parseResult.GetValue(GuidanceScale) : (__requestBase is { } __GuidanceScaleBaseValue ? __GuidanceScaleBaseValue.GuidanceScale : default);
                 using var client = await CliRuntime.CreateClientAsync(parseResult, cancellationToken).ConfigureAwait(false);
 
 
