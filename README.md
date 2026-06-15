@@ -40,6 +40,13 @@ using EigenAI;
 using var client = new EigenAIClient(apiKey);
 ```
 
+### CLI
+
+```bash
+dotnet tool install --global EigenAI.CLI --prerelease
+eigen-ai api --help
+```
+
 <!-- EXAMPLES:START -->
 ### Generate image
 Generate an image with an EigenAI image model.
