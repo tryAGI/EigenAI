@@ -5,7 +5,7 @@ using System.CommandLine;
 
 namespace EigenAI.CLI.Commands;
 
-internal static partial class ImagesGenerateImageCommandApiCommand
+internal static partial class ImagesGenerateImageAsBytesCommandApiCommand
 {
     private static readonly ImageGenerationRequestOptionSet ImageGenerationRequestOptionSetOptions = ImageGenerationRequestOptionSet.Create();
       private static Option<string?> Input { get; } = new(@"--input")
@@ -25,29 +25,9 @@ internal static partial class ImagesGenerateImageCommandApiCommand
           Hidden = true,
       };
 
-                    private static string FormatResponse(ParseResult parseResult, global::EigenAI.ImageGenerationResponse value, global::System.Text.Json.Serialization.JsonSerializerContext context, bool truncateLongStrings)
-                    {
-                        string? text = null;
-                        CustomizeResponseText(parseResult, value, ref text);
-                        if (!string.IsNullOrWhiteSpace(text))
-                        {
-                            return text;
-                        }
-
-                        var hints = new Dictionary<string, CliFormatHint>(StringComparer.OrdinalIgnoreCase)
-                        {
-                        };
-                        CustomizeResponseFormatHints(hints);
-                        return CliRuntime.FormatHumanReadable(value, context, truncateLongStrings, hints);
-                    }
-
-                    static partial void CustomizeResponseText(ParseResult parseResult, global::EigenAI.ImageGenerationResponse value, ref string? text);
-                    static partial void CustomizeResponseFormatHints(Dictionary<string, CliFormatHint> hints);
-
-
     public static Command Create()
     {
-        var command = new Command(@"generate-image", @"Generate or edit an image.
+        var command = new Command(@"generate-image-as-bytes", @"Generate or edit an image.
 Generates images from text prompts with JSON requests, or edits images with multipart form uploads depending on the selected model.");
                         command.Options.Add(ImageGenerationRequestOptionSetOptions.Model);
                         command.Options.Add(ImageGenerationRequestOptionSetOptions.Prompt);
@@ -92,7 +72,7 @@ Generates images from text prompts with JSON requests, or edits images with mult
                 using var client = await CliRuntime.CreateClientAsync(parseResult, cancellationToken).ConfigureAwait(false);
 
 
-                                var response = await client.GenerateImageAsync(
+                                var response = await client.GenerateImageAsBytesAsync(
                                     model: model,
                                     prompt: prompt,
                                     seed: seed,
@@ -103,13 +83,7 @@ Generates images from text prompts with JSON requests, or edits images with mult
                                     guidanceScale: guidanceScale,
                                     cancellationToken: cancellationToken).ConfigureAwait(false);
 
-
-                                await CliRuntime.WriteResponseAsync(
-                                    parseResult,
-                                    response,
-                                    global::EigenAI.SourceGenerationContext.Default,
-                                    FormatResponse,
-                                    cancellationToken).ConfigureAwait(false);
+                                await CliRuntime.WriteBinaryAsync(parseResult, response, cancellationToken).ConfigureAwait(false);
             }, cancellationToken).ConfigureAwait(false));
         return command;
     }

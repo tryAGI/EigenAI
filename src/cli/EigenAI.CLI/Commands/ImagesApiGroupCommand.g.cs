@@ -10,6 +10,7 @@ internal static class ImagesApiGroupCommand
     {
         var command = new Command(@"images", @"Images endpoint commands.");
                          command.Subcommands.Add(ImagesGenerateImageCommandApiCommand.Create());
+                         command.Subcommands.Add(ImagesGenerateImageAsBytesCommandApiCommand.Create());
         return command;
     }
 }
