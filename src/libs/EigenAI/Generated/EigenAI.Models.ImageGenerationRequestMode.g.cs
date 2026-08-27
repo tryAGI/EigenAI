@@ -4,16 +4,16 @@
 namespace EigenAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ImageGenerationRequestMode
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         ImageEditing,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         TextToImage,
     }

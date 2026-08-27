@@ -11,7 +11,7 @@ namespace EigenAI
     public sealed partial class EigenAIClient : global::EigenAI.IEigenAIClient, global::System.IDisposable
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public const string DefaultBaseUrl = "https://api-web.eigenai.com/";
 
@@ -38,7 +38,7 @@ namespace EigenAI
         internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::EigenAI.SourceGenerationContext.Default);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext
         {

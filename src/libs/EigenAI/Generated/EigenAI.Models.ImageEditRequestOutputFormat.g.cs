@@ -4,16 +4,16 @@
 namespace EigenAI
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum ImageEditRequestOutputFormat
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Jpg,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Png,
     }
