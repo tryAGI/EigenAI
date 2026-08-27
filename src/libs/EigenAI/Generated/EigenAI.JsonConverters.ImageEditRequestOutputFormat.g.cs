@@ -20,7 +20,7 @@ namespace EigenAI.JsonConverters
                     {
                         return global::EigenAI.ImageEditRequestOutputFormatExtensions.ToEnum(stringValue) ?? default;
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:
