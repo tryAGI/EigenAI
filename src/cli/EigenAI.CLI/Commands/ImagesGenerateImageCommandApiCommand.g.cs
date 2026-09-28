@@ -45,6 +45,8 @@ internal static partial class ImagesGenerateImageCommandApiCommand
                     static partial void CustomizeResponseFormatHints(Dictionary<string, CliFormatHint> hints);
 
 
+    static partial void CustomizeCommand(ref Command command);
+
     public static Command Create()
     {
         var command = new Command(@"generate-image", @"Generate or edit an image.
@@ -111,6 +113,7 @@ Generates images from text prompts with JSON requests, or edits images with mult
                                     FormatResponse,
                                     cancellationToken).ConfigureAwait(false);
             }, cancellationToken).ConfigureAwait(false));
+        CustomizeCommand(ref command);
         return command;
     }
 }
