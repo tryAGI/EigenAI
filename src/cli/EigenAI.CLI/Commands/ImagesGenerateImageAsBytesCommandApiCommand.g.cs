@@ -27,9 +27,9 @@ internal static partial class ImagesGenerateImageAsBytesCommandApiCommand
 
     static partial void CustomizeCommand(ref Command command);
 
-    public static Command Create()
+    public static Command Create(string? commandName = null)
     {
-        var command = new Command(@"generate-image-as-bytes", @"Generate or edit an image.
+        var command = new Command(commandName ?? @"generate-image-as-bytes", @"Generate or edit an image.
 Generates images from text prompts with JSON requests, or edits images with multipart form uploads depending on the selected model.");
                         command.Options.Add(ImageGenerationRequestOptionSetOptions.Model);
                         command.Options.Add(ImageGenerationRequestOptionSetOptions.Prompt);
