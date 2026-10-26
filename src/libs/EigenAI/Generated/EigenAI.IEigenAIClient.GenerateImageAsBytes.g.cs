@@ -35,6 +35,20 @@ namespace EigenAI
         /// Generates images from text prompts with JSON requests, or edits images with multipart form uploads depending on the selected model.
         /// </summary>
         /// <param name="request"></param>
+        /// <returns>The response metadata and an unbuffered body stream. The caller must dispose Body to release the HTTP response.</returns>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::EigenAI.ApiException"></exception>
+        global::System.Threading.Tasks.Task<global::EigenAI.AutoSDKHttpResponse<global::System.IO.Stream>> GenerateImageAsBytesAsStreamAsResponseAsync(
+
+            global::EigenAI.ImageGenerationRequest request,
+            global::EigenAI.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Generate or edit an image.<br/>
+        /// Generates images from text prompts with JSON requests, or edits images with multipart form uploads depending on the selected model.
+        /// </summary>
+        /// <param name="request"></param>
         /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
         /// <param name="cancellationToken">The token to cancel the operation with</param>
         /// <exception cref="global::EigenAI.ApiException"></exception>
