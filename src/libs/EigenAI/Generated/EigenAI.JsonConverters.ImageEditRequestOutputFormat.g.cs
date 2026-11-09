@@ -18,7 +18,7 @@ namespace EigenAI.JsonConverters
                     var stringValue = reader.GetString();
                     if (stringValue != null)
                     {
-                        return global::EigenAI.ImageEditRequestOutputFormatExtensions.ToEnum(stringValue) ?? default;
+                        return global::EigenAI.ImageEditRequestOutputFormatExtensions.ToEnum(stringValue) ?? throw new global::System.Text.Json.JsonException($"Unknown value '{stringValue}' for global::EigenAI.ImageEditRequestOutputFormat.");
                     }
 
                     break;
